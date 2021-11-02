@@ -9,15 +9,17 @@ class App extends Component {
 
     this.state = {
       tasks: [],
+      editLine : null
     }
 
     this.addTask = this.addTask.bind(this)
     this.deleteTask = this.deleteTask.bind(this)
-    this.modifyTask = this.modifyTask.bind(this)
+    this.setEditLine = this.setEditLine.bind(this)
+    // this.modifyTask = this.modifyTask.bind(this)
   }
 
   addTask (str) {
-    this.setState ({tasks : [{description: str, status: "To do",}, ...this.state.tasks]})
+    this.setState ({tasks : [{description: str, status: "To do"}, ...this.state.tasks]})
   }
 
   deleteTask (index) {
@@ -26,19 +28,20 @@ class App extends Component {
     this.setState ({tasks : array})
   }
 
-  modifyTask (index) {
-    
+  setEditLine (index) {
+    this.setState ({editLine : index})
   }
 
+
   render() {
-    const {tasks} = this.state
+    const {tasks, editLine} = this.state
     return (
       <div className="container">
         <h1>
           To do list
         </h1>
         <Form addTask={this.addTask}/>
-        <List tasks={tasks} deleteTask={this.deleteTask} modifyTask={this.modifyTask} />
+        <List tasks={tasks} deleteTask={this.deleteTask} setEditLine={this.setEditLine} editLine={editLine} />
       </div>
     );
   }
